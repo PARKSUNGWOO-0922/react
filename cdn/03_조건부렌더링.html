@@ -10,8 +10,8 @@
 </head>
 <body>
     <div id="root"></div>
-
     <script type="text/babel"> 
+        let isLoggedIn = false;
         //{조건부 렌더링 } + props
         function Greeting(props) {
             return (
@@ -19,9 +19,9 @@
                  );
             }
 
+            const root = ReactDOM.createRoot(document.querySelector("#root"));
+              root.render(<Greeting isLoggedIn={isLoggedIn}/>);
     </script>
 
-    const root = ReactDOM.createRoot(document.querySelector("#root"));
-      root.render(<App7 />);
 </body>
 </html>
