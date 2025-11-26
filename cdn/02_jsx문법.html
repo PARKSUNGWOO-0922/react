@@ -17,6 +17,8 @@
       const element = <h1>Hello, world!</h1>;
       // 반드시 self-closing
       const img = <img src="logo.png" />;
+      const input2 = <input type="text"/>
+
       // 오류! 닫는 태그 필요
       const element2 = <br />;
 
@@ -46,10 +48,46 @@
         );
       }
 
+            function App2() {
+        // 올바른 JSX
+        return (
+          //2. JSX는 반드시 하나의 부모 태그로 감싸야 합니다.
+          <React.Fragment>
+            <div>
+              <h1>제목</h1>
+              <p>본문</p>
+            </div>
+            <div>
+              <h1>제목</h1>
+              <p>본문</p>
+            </div>
+          </React.Fragment>
+        );
+      }
+
+            function App3() {
+        // 올바른 JSX
+        return (
+          //2. JSX는 반드시 하나의 부모 태그로 감싸야 합니다.
+          <div>
+            <div>
+              <h1>제목</h1>
+              <p>본문</p>
+            </div>
+            <div>
+              <h1>제목</h1>
+              <p>본문</p>
+            </div>
+          </div>
+        );
+      }
+
       //3. 속성 이름은 카멜 표기법으로
       // 예) className, htmlFor, tabIndex
       const div = <div className="box">내용</div>;
       const lbl = <label htmlFor="inputId">이름</label>;
+      const input3 = <input disabled={false} />
+      const input4 = <input disabled />//속성값 생략하면 true
 
       //4. JSX 안에서는 JavaScript 표현식을 {}로 감쌉니다.
       const name = "React";
@@ -65,16 +103,86 @@
       console.log(login);
       console.log(admin);
 
-      //4-2style 속성은 객체 형태로 작성하고, CSS 속성명도 camelCase로 써야 합니다
+      //4-2style 속성은 표현식 안에 객체{} 형태로 작성하고, CSS 속성명도 camelCase로 써야 합니다
+      //'font-size':'20px' 도 가능.
 
       //const style = { color: 'red', fontSize: '20px' };
       const element4 = <h1 style={{ color: 'red', fontSize: '20px' }}>스타일 적용</h1>;
 
+      //4-3 이벤트 핸들링- 속성명은 카멜 표기법
+      //App4 컴포넌트
+      function App4() {
+        //JS 영역
+        //doSomething는 함수
+        function doSomething(){alert('doSomething 함수!')};
+        return (
+          <>
+          {/* JSX 영역 주석:shift+alt+a */}
+            <button onClick={doSomething}>Click</button>
+        
+          </>
+        );
+      }
+      function App5() {
+          //const [변수, 함수] = React.useState(초기값);
+          const [text, setText] = React.useState('');
+          
+          
+            //event -> e
+          function handleChange(e) {
+          setText(e.target.value);
+          console.log(e.target); //input
+       };
+
+        return (
+          // onChange:입력 값의 변경이 있을때
+          //JSX에서 변수를 출력(렌더링)하려면 중괄호 {}를 사용합니다.ex){text} 
+           <><input type="text" value={text} onChange={handleChange} />
+             <p>You typed: {text}</p>
+            <button onClick={function(){handleClick('')}}>Delete</button>{/* 화살표함수로~ */}
+            { /* <button onClick={() => handleClick(id)}>Delete</button> */}
+           </>
+          );
+        }
+        
+        function App6(){
+      //5. 변수 출력
+        const name = "Alice";
+        function getGreeting(name) {
+         return `Hi, ${name}`;//순수JS에서 템플릿 리터럴:${표현식}
+          }
+
+          return (
+            <div>
+            {/* JSX의 표현식:{표현식} */}
+              <h1>Hello, {name}!</h1>
+              <h2>{getGreeting("Tom")}</h2>
+            </div>
+        );
+      };
+
+        //
+        function App7(){
+          const fruits = ['🍎', '🍌', '🍇'];
+          //배열.map((요소,인덱스) => {});
+          return(
+            <ul>
+              {fruits.map((fruit, index) => (
+                <li key={index}>{fruit}</li>
+              ))}
+            </ul>
+           );
+        };
+
+
+
+
 
       
+      //랜더링->출력
       
       const root = ReactDOM.createRoot(document.querySelector("#root"));
-      root.render(element4);
+      root.render(<App7 />);
 
     </script>
   </body>
