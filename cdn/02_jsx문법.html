@@ -126,21 +126,23 @@
       function App5() {
           //const [변수, 함수] = React.useState(초기값);
           const [text, setText] = React.useState('');
+            const handleChange = e => setText(e.target.value);
+            const handleClick = del => setText(del);
           
-          
-            //event -> e
-          function handleChange(e) {
-          setText(e.target.value);
-          console.log(e.target); //input
-       };
+          //event -> e
+          //function handleChange(e) {
+          //setText(e.target.value); //input에 입력된 문자열
+          //console.log(e.target); //input을 가리킴
+          //};
 
         return (
           // onChange:입력 값의 변경이 있을때
           //JSX에서 변수를 출력(렌더링)하려면 중괄호 {}를 사용합니다.ex){text} 
            <><input type="text" value={text} onChange={handleChange} />
              <p>You typed: {text}</p>
-            <button onClick={function(){handleClick('')}}>Delete</button>{/* 화살표함수로~ */}
-            { /* <button onClick={() => handleClick(id)}>Delete</button> */}
+           {/*  <button onClick={function(){handleClick('')}}>Delete</button> */}
+            {/* 익명함수를 화살표함수로(아래주석)~ */}
+             <button onClick={() => handleClick('')}>Delete</button> 
            </>
           );
         }
@@ -182,7 +184,7 @@
       //랜더링->출력
       
       const root = ReactDOM.createRoot(document.querySelector("#root"));
-      root.render(<App4 />);
+      root.render(<App5 />);
 
     </script>
   </body>
