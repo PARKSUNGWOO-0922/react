@@ -1,26 +1,25 @@
 // import './App.css'
-import {useState} from "react";
+import { useState } from "react";
 
 function Header(props) {
   console.log("props", props.title);
   //title:React ,props React
   return (
-      <header>
-        <h1>
-          <a
-           href="/"
-            onClick={(e) => {
-          e.preventDefault(); /* 기본 이벤트 방지 */
-          // alert('경고창이 뜬다'); 일반적인 방법
-          props.onChangeMode();
-           /*함수호출로 표현한다.  */
-
-        }}
+    <header>
+      <h1>
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault(); /* 기본 이벤트 방지 */
+            // alert('경고창이 뜬다'); 일반적인 방법
+            props.onChangeMode();
+            /*함수호출로 표현한다.  */
+          }}
         >
           {props.title}
-          </a>
-        </h1>
-      </header>
+        </a>
+      </h1>
+    </header>
   );
 }
 function Nav(props) {
@@ -33,36 +32,36 @@ function Nav(props) {
   // 방법2
   const lis = [];
   for (let i = 0; i < props.topics.length; i++) {
-   let t = props.topics[i];
-  //  lis.push(<li>{t.title}</li>)  read 내용도표시 하고 싶은 경우
-   lis.push(
-   <li key={t.id}>
-    <a 
-    id={t.id} 
-    href={"/read/" + t.id} 
-    onClick={(e) => {
-    e.preventDefault();
-    props.onChangeMode(Number(e.target.id));
-                        //console.log(e.target.id);
-   }}
-   >
-    {t.title}
-    </a>
-    </li>
+    let t = props.topics[i];
+    //  lis.push(<li>{t.title}</li>)  read 내용도표시 하고 싶은 경우
+    lis.push(
+      <li key={t.id}>
+        <a
+          id={t.id}
+          href={"/read/" + t.id}
+          onClick={(e) => {
+            e.preventDefault();
+            props.onChangeMode(Number(e.target.id));
+            //console.log(e.target.id);
+          }}
+        >
+          {t.title}
+        </a>
+      </li>
     );
   }
   return (
     <nav>
-        <ol>{lis}</ol>
-      </nav>
+      <ol>{lis}</ol>
+    </nav>
   );
 }
 function Article(props) {
   return (
-     <article>
-        <h2>{props.title}</h2>
-        {props.body}
-      </article>
+    <article>
+      <h2>{props.title}</h2>
+      {props.body}
+    </article>
   );
 }
 
@@ -70,7 +69,7 @@ function Create(props) {
   return (
     <article>
       <h2>Create</h2>
-      <form onSubmit={e=>{
+      <form onSubmit={(e) => {
         e.preventDefault();
         //submit효과제거
 
@@ -81,7 +80,7 @@ function Create(props) {
 
         const title = e.target.title.value;
         const body = e.target.body.value;
-        props.onCreate(title,body);
+        props.onCreate(title, body);
 
       }}>
         <p><input type="text" name="title" placeholder="title" /></p>
@@ -98,17 +97,17 @@ function Update(props) {
   return (
     <article>
       <h2>Update</h2>
-      <form onSubmit={e=>{
+      <form onSubmit={(e) => {
         e.preventDefault();
         console.log(e.target.title.value);
         const title = e.target.title.value;
         const body = e.target.body.value;
-        props.onUpdate(title,body);
+        props.onUpdate(title, body);
       }}>
-        <p><input type="text" name="title" placeholder="title" value={title} onChange={(e)=>{console.log(e.target.value);setTitle(e.target.value)}} /></p>
-        <p><textarea name="body" placeholder="body" value={body} 
-        /* HTML의 onchange는 값이 바뀌거나 마우스 포인터가 바깥쪽을 빠져나갈대 호출되지만, 리액트ㅡ이 onChange는 값을 입력할때마다 호출된다. */
-        onChange={(e)=>{console.log(e.target.value);setBody(e.target.value)}}></textarea></p>
+        <p><input type="text" name="title" placeholder="title" value={title} onChange={(e) => { console.log(e.target.value); setTitle(e.target.value) }} /></p>
+        <p><textarea name="body" placeholder="body" value={body}
+          /* HTML의 onchange는 값이 바뀌거나 마우스 포인터가 바깥쪽으로 빠져나갈때 호출되지만, 리액트의 onChange는 값을 입력할 때마다 호출된다. */
+          onChange={(e) => { console.log(e.target.value); setBody(e.target.value) }}></textarea></p>
         <p><input type="submit" value="Update" /></p>
       </form>
     </article>
@@ -129,9 +128,9 @@ function App() {
 
 
   const [topics, setTopics] = useState([
-    {id: 1, title:'html', body:'hml is ...'},
-    {id: 2, title:'css', body:'css is ...'},
-    {id: 3, title:'javascript', body:'javascript is ...'}
+    { id: 1, title: 'html', body: 'hml is ...' },
+    { id: 2, title: 'css', body: 'css is ...' },
+    { id: 3, title: 'javascript', body: 'javascript is ...' }
   ]);
   // const topics = [
   //   {id:1, title:'html', body:'hml is ...'},//topics[0]
@@ -141,77 +140,78 @@ function App() {
 
   //CRUD(Create, Read, Update, Delete)
   let content = null;
-  let contentControl =null;
-      if (mode === 'WELCOME') {
-          content = <Article title="Welcome" body="Hello, Web"></Article>;
+  let contentControl = null;
+  if (mode === 'WELCOME') {
+    content = <Article title="Welcome" body="Hello, Web"></Article>;
 
-      } else if (mode === 'READ') {
-        let title,
-             body = null;
+  } else if (mode === 'READ') {
+    let title,
+      body = null;
 
-        for (let i = 0; i < topics.length; i++) {
-          if (topics[i].id === id) {
-            title = topics[i].title;
-            body = topics[i].body;
-          }
-        }
-          content = <Article title={title} body={body}></Article>;
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Article title={title} body={body}></Article>;
 
-          contentControl = (<li>
-          {/* 갱신(update) 버튼*/}
-          <a href={"/update/" + id} onClick={e=>{e.preventDefault();
-             setMode('UPDATE');
-          }}>Update</a>
-        </li>);
+    contentControl = (<li>
+      {/* 갱신(Update) 버튼*/}
+      <a href={"/update/" + id} onClick={(e) => {
+        e.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a>
+    </li>);
 
-      } else if (mode === 'CREATE') {
-          content = <Create onCreate={(title, body)=>{
-          const newTopic = {id:nextId, title:title, body:body};  
-          /* 
-            const newValue = {...value} 객체면 {}, 배열이면 []
-            newValue 변경
-            setValue(newValue)
-          */
+  } else if (mode === 'CREATE') {
+    content = (<Create onCreate={(title, body) => {
+      const newTopic = { id: nextId, title: title, body: body };
+      /* 
+        const newValue = {...value} 객체면 {}, 배열이면 []
+        newValue 변경
+        setValue(newValue)
+      */
+      const newTopics = [...topics];
+      newTopics.push(newTopic);
+      setTopics(newTopics);
+      setMode('READ');
+      setId(nextId);
+      setNextId(nextId + 1);
+    }}></Create>);
+    /* UPDATE = READ + CREATE */
+  } else if (mode === 'UPDATE') {
+    let title, body = null;
+
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+
+    content = (
+      <Update
+        title={title}
+        body={body}
+        onUpdate={(title, body) => {
+          console.log("title=", title, "body=", body);
+
           const newTopics = [...topics];
-          newTopics.push(newTopic);
-          setTopics(newTopics);
-          setMode('READ');
-          setId(nextId);
-          setNextId(nextId + 1);
-          }}></Create>;
-          /* UPDATE = READ + CREATE */
-      } else if (mode === 'UPDATE'){
-            let title, body = null;
+          const updateTopic = { id: id, title: title, body: body };
 
-        for (let i = 0; i < topics.length; i++) {
-          if (topics[i].id === id) {
-            title = topics[i].title;
-            body = topics[i].body;
+          for (let i = 0; i < newTopics.length; i++) {
+            if (newTopics[i].id === id) {
+              newTopics[i] = updateTopic;
+              break;
+            }
           }
-        }
-
-        content = (
-            <Update
-                title={title}
-                body={body}
-                onUpdate={(title, body) => {
-                    console.log("title=", title, "body=", body);
-
-                    const newTopics = [...topics];
-                    const updateTopic = { id: id, title: title, body: body };
-
-                    for (let i = 0; i < newTopics.length; i++) {
-                        if(newTopics[i].id === id){
-                            newTopics[i] = updateTopic;
-                            break;
-                        }
-                    }
-                    setTopics(newTopics);
-                    setMode("READ");
-                }}
-            ></Update>
-        );
-    } // if end
+          setTopics(newTopics);
+          setMode("READ");
+        }}
+      ></Update>
+    );
+  } // if end
 
   return (
     <div>
@@ -221,21 +221,21 @@ function App() {
       {/* <Header title="WEB" onChangeMode={function(){alert('Header');}}></Header> */}
       {/* onChangeMode 사용자정의 속성 함수x */}
       <Header title="WEB"
-       onChangeMode={()=>{
-        setMode('WELCOME');
+        onChangeMode={() => {
+          setMode('WELCOME');
         }}>
 
-        </Header>
+      </Header>
       {/* <Header></Header>
       <Header></Header> */}
 
       {/* 내비게이션 */}
       {/* <Nav topics={topics} onChangeMode={(id)=>{  alert(id); }}></Nav> */}
-      <Nav topics={topics} onChangeMode={(_id)=>{
+      <Nav topics={topics} onChangeMode={(_id) => {
         //mode = 'READ'
         setMode('READ');
-         setId(_id);
-         }}></Nav>
+        setId(_id);
+      }}></Nav>
 
       {/* 아티클 */}
       {content}
@@ -245,18 +245,18 @@ function App() {
       <ul>
         <li>
           {/* 생성(Create) = 추가(insert) 버튼 */}
-          
+
           <a href="/create" onClick={(e) => {
             e.preventDefault();
             setMode('CREATE');
           }}>Create</a>
         </li>
-        
-       {contentControl}
-        
+
+        {contentControl}
+
       </ul>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
