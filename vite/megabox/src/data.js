@@ -1,4 +1,5 @@
 // 카드 데이터 배열
+// datas는 영화 정보를 담고 있는 객체 배열입니다.
 
 export const datas = [
     {
