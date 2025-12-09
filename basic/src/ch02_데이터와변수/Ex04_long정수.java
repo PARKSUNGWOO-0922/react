@@ -1,15 +1,17 @@
 package ch02_데이터와변수;
 
 
-public class Ex03_byte정수 {
-	//1.byte	1byte -8bit -> 2의 8승 -> 256가지 숫자 ->-128~127
+public class Ex04_long정수 {
+	//1.long	8byte -64bit -> 2의 64승 -> +-922경
 	public static void main(String[] args) {
-		byte var1 = -128;
-		byte var2 = -30;
-		byte var3 = 0;
-		byte var4 = 30;
-		byte var5 = 127;
-		//byte var5 = 128; //에러Type mismatch: cannot convert from int to byte
+		//ctrl + f: 찾기/바꾸기
+		//alt+shift+a -> 다중 커서 편집 상태에서 shift+방향킬 다중커서 생성후 수정
+		long var1 = -128;
+		long var2 = -30;
+		long var3 = 0;
+		long var4 = 30;
+		long var5 = 127;
+		
 		
 			
 		
