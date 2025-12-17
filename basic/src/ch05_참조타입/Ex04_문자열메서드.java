@@ -1,4 +1,4 @@
-package ch05_;
+package ch05_참조타입;
 /**
  * 문자열 메서드
  * 	1.charAt(인덱스)0~
